@@ -1,0 +1,129 @@
+<?php
+//Turn on error reporting
+ini_set('display_errors', 'On');
+//Connects to the database
+
+$mysqli = new mysqli("oniddb.cws.oregonstate.edu", "brasingf-db", "FTToH34mDH89PIrN", "brasingf-db");
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+echo "Add a new member"
+?>
+
+<html>
+<head>
+<title>Create New Account</title>
+</head>
+<body>
+
+<h1>Create New Account</h1>
+	<p>Create a new user account for Veteran Connection.</p>
+
+  <form action="fillthislater.html" method="get">
+    <fieldset>
+    	<legend>Name</legend>
+        <p>First Name: <input type="text" name="firstname" required></p>
+        <p>Last Name: <input type="text" name="lastname" required></p>  
+    </fieldset>
+		<fieldset>
+    	<legend>Gender</legend>
+      <input type="radio" name="gender" value="male" checked> Male<br>
+      <input type="radio" name="gender" value="female"> Female<br>
+      <input type="radio" name="gender" value="other"> Other
+    </fieldset>
+    
+    <fieldset>
+			<legend>DOB</legend>
+				 <input type="date" name="dob" required>
+		</fieldset>
+    <fieldset>
+      <legend>Military Branch</legend>
+      <select name="***Military Branch ID***" required>
+        <option value="marineCorps">Marine Corps</option>
+        <option value="navy">Navy</option>
+        <option value="army">Army</option>
+        <option value="airforce">Air Force</option>
+        <option value="coastguard">Coast Guard</option>
+      </select>
+		</fieldset>
+    
+     <fieldset>
+				<legend>Bases</legend>
+				<select multiple name="***Military Base ID***">
+          <option value="Parris Island">Parris Island, Recruit Depot</option>
+          <option value="Mayport">Mayport</option>
+          <option value="FortCarson">Fort Carson</option>
+          <option value="Edwards">Edwards Air Force Base</option>
+          <option value="Key West">Key West</option>
+        </select>
+		</fieldset>
+    
+   <fieldset>
+				<legend>Deployments</legend>
+				<select multiple name="***Deployment ID***">
+          <option value="OIF">OIF</option>
+          <option value="OEF">OEF</option>
+          <option value="DesertStorm">Desert Storm</option>
+          <option value="Damayan">Operation Damayan</option>
+          <option value="Spartan Shield">Spartan Shield</option>
+        </select>
+		</fieldset>
+    
+   <fieldset>
+    	<legend>MOS</legend>
+        <p>Primary: <input type="text" name="primarymos"></p>
+        <p>Secondary: <input type="text" name="secondarymos"></p>  
+    </fieldset>
+  
+   <fieldset>
+    	<legend>Current Address</legend>
+        <p>City: <input type="text" name="city"></p>
+        <p>State: <input type="text" name="state"></p>  
+    </fieldset>
+  
+   <fieldset>
+				<legend>UNITs</legend>
+				<select multiple name="***Deployment ID***">
+          <option value="CLR3">Combat Logistics Regiment 3</option>
+          <option value="MAG2">Marine Air Group 2</option>
+          <option value="4thinf">4th Infanty Divison</option>
+          <option value="USSgreenbay">USS Green Bay</option>
+          <option value="2ndfightertrainingsquadron">2d Fighter Training Squadron</option>
+        </select>
+		</fieldset>
+
+
+
+	<fieldset>
+    	<legend>Upload DD214</legend>
+      <input type="file" name="DD214" required>
+    </fieldset>
+  <br>  
+  <input type="submit">
+    
+
+
+<!-- This section is for submitting the new User to the server 
+?? means that this block needs to be changed to fix the database-->
+<?php
+if(!($stmt = $mysqli->prepare("SELECT ??, ?? FROM ??"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($class_id, $class_name)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value=" '. $class_id . ' "> ' . $class_name . '</option>\n';
+}
+$stmt->close();
+?>
+
+    <input type="submit" value="Submit">
+  </form>
+
+</body>
+</html>
