@@ -36,6 +36,8 @@ CREATE TABLE user (
 	date_end DATE,
 	
 	rank varchar(255) NOT NULL,
+
+	urgentHelp boolean,
 	
 	
 	PRIMARY KEY (id),
@@ -80,8 +82,8 @@ CREATE TABLE user_campaign(
 	`cid` int(11),
 	date DATE,
 	PRIMARY KEY (uid, cid),
-	FOREIGN KEY uid REFERENCES user (id),
-	FOREGIN KEY cid REFERENCES campaign (id)
+	FOREIGN KEY (uid) REFERENCES user (id),
+	FOREIGN KEY (cid) REFERENCES campaign (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE user_unit(
@@ -89,25 +91,25 @@ CREATE TABLE user_unit(
 	`unid` int(11),
 	date_start DATE,
 	date_end DATE,
-	PRIMARY KEY (usid, unid)
-	FOREIGN KEY usid REFERENCES user (id),
-	FOREGIN KEY unid REFERENCES unit (id)
+	PRIMARY KEY (usid, unid),
+	FOREIGN KEY (usid) REFERENCES user (id),
+	FOREIGN KEY (unid) REFERENCES unit (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE unit_campaign(
 	`uid` int(11),
 	`cid` int(11),
-	PRIMARY KEY (uid, cid)
-	FOREIGN KEY uid REFERENCES unit (id)
-	FOREGIN KEY cid REFERENCES campaign (id)
+	PRIMARY KEY (uid, cid),
+	FOREIGN KEY (uid) REFERENCES unit (id),
+	FOREIGN KEY (cid) REFERENCES campaign (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE user_job(
 	`uid` int(11),
 	`jid` int(11),
 	PRIMARY KEY (uid, jid),
-	FOREIGN KEY uid REFERENCES user (id),
-	FOREGIN KEY jid REFERENCES job (id)
+	FOREIGN KEY (uid) REFERENCES user (id),
+	FOREIGN KEY (jid) REFERENCES jobs (id)
 	
 ) ENGINE=InnoDB;
 
@@ -117,8 +119,8 @@ CREATE TABLE user_base(
 	date_start DATE,
 	date_end DATE,
 	PRIMARY KEY (uid, bid),
-	FOREIGN KEY uid REFERENCES user (id),
-	FOREGIN KEY bid REFERENCES base (id)
+	FOREIGN KEY (uid) REFERENCES user (id),
+	FOREIGN KEY (bid) REFERENCES base (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE school(
@@ -132,6 +134,6 @@ CREATE TABLE user_school(
 	sid int(11),
 	date_attended DATE,
 	PRIMARY KEY (usid, sid),
-	FOREIGN KEY uid REFERENCES user (id),
-	FOREGIN KEY cid REFERENCES school (id)
+	FOREIGN KEY (usid) REFERENCES user (id),
+	FOREIGN KEY (sid) REFERENCES school (id)
 ) ENGINE=InnoDB;
