@@ -7,9 +7,8 @@ $mysqli = new mysqli("oniddb.cws.oregonstate.edu","orellang-db","LW95pTHsRbglbY3
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
-echo "Add a new member"
 ?>
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>Create New Account</title>
@@ -45,11 +44,12 @@ echo "Add a new member"
     
     <fieldset>
 			<legend>Phone Number</legend>
-				 <input type="text" name="phone" required>
-		</fieldset>
+				 <input type="tel" pattern ="\d{3}[\-]\d{3}[\-]\d{4}" name="phone" required>
+				 (Format must be: xxx-xxx-xxxx)
+	</fieldset>
 
     <fieldset>
-			<legend>e-mail</legend>
+			<legend>E-mail</legend>
 				 <input type="text" name="email" required>
 		</fieldset>
     <fieldset>

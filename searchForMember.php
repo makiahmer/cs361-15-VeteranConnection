@@ -20,16 +20,48 @@
         <option value="airforce">Air Force</option>
         <option value="coastguard">Coast Guard</option>
       </select>
+	  <input type="submit" value="Search">
 		</fieldset>
+    <br>
     
-    <input type="submit" value="Submit">
+</form>
+<form action="namesearch.php" method="post">
+
+    <fieldset>
+		<legend>Search by Name</legend>
+		<p>First Name: <input type="text" name="fname" required></p>
+		<p>Last Name: <input type="text" name="lname" required></p>
+		<input type="submit" value="Search">
+	</fieldset>  
+	<br>	
+    
+</form>
+<form action="emailsearch.php" method="post">
+
+    <fieldset>
+		<legend>Search by Email Address</legend>
+		<p>Email: <input type="email" name="email" required></p>
+		<input type="submit" value="Search">
+	</fieldset>    
+	<br>
+</form>
+<form action="phonesearch.php" method="post">
+
+    <fieldset>
+		<legend>Search by Phone Number</legend>
+		<p>Phone Number: <input type="tel" pattern ="\d{3}[\-]\d{3}[\-]\d{4}" name="phone" required> (Format must be: xxx-xxx-xxxx)</p>
+				 
+		<input type="submit" value="Search">
+	</fieldset>    
+    <br>
 </form>
 </div>
+
 <div>
 		<br>
 		<form action="http://web.engr.oregonstate.edu/~orellang/mainpage.php?">
 			<input type="submit" value="Return to Mainpage" />
 		</form>
-	</div>
+</div>
 </body>
 </html>
