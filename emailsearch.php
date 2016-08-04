@@ -46,6 +46,11 @@ $stmt->close();
 ?>
 	</table>
 </div>
-
+<div>
+		<br>
+		<form action="searchForMember.php?">
+			<input type="submit" value="Return to Search Page" />
+		</form>
+</div>
 </body>
 </html>

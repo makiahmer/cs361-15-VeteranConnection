@@ -1,3 +1,12 @@
+<?php
+//Turn on error reporting
+ini_set('display_errors', 'On');
+//Connects to the database
+$mysqli = new mysqli("oniddb.cws.oregonstate.edu","orellang-db","LW95pTHsRbglbY3q","orellang-db");
+if(!$mysqli || $mysqli->connect_errno){
+	echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +64,88 @@
 	</fieldset>    
     <br>
 </form>
+
+<form method="post" action="unitsearch.php">
+		<fieldset>
+			<legend>Search by Unit</legend>
+				<select name="unit">
+					<!-- Get list of units -->
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, unit FROM unit"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($unit_id, $unit_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $unit_id . ' "> ' . $unit_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+				</select>
+			<input type="submit" value="Search" />
+		</fieldset>
+		<br>
+</form>
+
+<form method="post" action="campaignsearch.php">
+		<fieldset>
+			<legend>Search by Campaign</legend>
+				<select name="campaign">
+					<!-- Get list of campaigns -->
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, campaign FROM campaign"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($campaign_id, $campaign_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $campaign_id . ' "> ' . $campaign_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+				</select>
+			<input type="submit" value="Search" />
+		</fieldset>
+		<br>
+</form>
+
+<form method="post" action="basesearch.php">
+		<fieldset>
+			<legend>Search by Base</legend>
+				<select name="base">
+					<!-- Get list of bases -->
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, name FROM base"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($base_id, $base_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $base_id . ' "> ' . $base_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+				</select>
+			<input type="submit" value="Search" />
+		</fieldset>
+		<br>
+</form>
+
 </div>
 
 <div>

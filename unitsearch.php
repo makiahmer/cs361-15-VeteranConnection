@@ -25,11 +25,12 @@ if ($mysqli->connect_errno) {
         <td>Branch</td>
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT user.fname, user.lname, user.rank, user.branch FROM user WHERE user.fname = ? AND user.lname = ?"))){
+if(!($stmt = $mysqli->prepare("SELECT us.fname, us.lname, us.rank, us.branch FROM user us 
+INNER JOIN user_unit uu ON us.id = uu.usid INNER JOIN unit un ON uu.unid = un.id WHERE un.id = ?"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
-if(!($stmt->bind_param("ss",$_POST['fname'],$_POST['lname']))){
+if(!($stmt->bind_param("i",$_POST['unit']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 

@@ -64,7 +64,7 @@ if ($mysqli->connect_errno) {
 	</fieldset>
 
     <fieldset>
-			<legend>Date Joined</legend>
+			<legend>Dates of Service</legend>
 				 <input type="date" name="date_start" required>
 				 <input type="date" name="date_end" required>
 		</fieldset>
@@ -78,10 +78,79 @@ if ($mysqli->connect_errno) {
         <option value="airforce">Air Force</option>
         <option value="coastguard">Coast Guard</option>
       </select>
-		</fieldset>
+	</fieldset>
+	<fieldset>
+		<legend>Primary Unit</legend>
+    	<select name="unit">
+					<!-- Get list of units -->
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, unit FROM unit"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
 
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($unit_id, $unit_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $unit_id . ' "> ' . $unit_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+		</select>
+		Start Date: <input type="date" name="date_start" required>
+		End Date: <input type="date" name="date_end" required>
+    </fieldset>
+	<fieldset>
+		<legend>Campaign</legend>
+    	<select name="campaign">
+					<option disabled selected value>None</option>
+					<!-- Get list of campaigns -->
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, campaign FROM campaign"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($campaign_id, $campaign_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $campaign_id . ' "> ' . $campaign_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+		</select>
+    </fieldset>
+	<fieldset>
+		<legend>Primary Base</legend>
+    	<select name="base">
+					<option disabled selected value>None</option>
+					<!-- Get list of bases -->
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, name FROM base"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($campaign_id, $campaign_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $campaign_id . ' "> ' . $campaign_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+		</select>
+    </fieldset>
   <br>  
- 
+	
 
     <input type="submit" value="Submit">
   </form>
