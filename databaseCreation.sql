@@ -137,3 +137,12 @@ CREATE TABLE user_school(
 	FOREIGN KEY (usid) REFERENCES user (id),
 	FOREIGN KEY (sid) REFERENCES school (id)
 ) ENGINE=InnoDB;
+
+CREATE TABLE connections(
+	iduser int(11),
+	idfriend int(11),
+	PRIMARY KEY (iduser, idfriend),
+	FOREIGN KEY (iduser) REFERENCES user (id),
+	FOREIGN KEY (idfriend) REFERENCES user (id)
+) ENGINE=InnoDB;
+

@@ -20,7 +20,7 @@ if(!($stmt = $mysqli->prepare("SELECT user.fname, user.lname, user.rank, user.br
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
-if(!($stmt->bind_param("s",$_POST['username']))){
+if(!($stmt->bind_param("ss",$_POST['username'], $_POST['password']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
@@ -37,6 +37,43 @@ $stmt->close();
 ?>
 	</table>
 </div>
+
+<form method="post" action="message.php">
+		<fieldset>
+			<legend>Ask for Urgent Help.</legend>
+				<select name="connection">
+					<!-- Get list of connections from current user -->
+					<?php
+					$currentUser = $_POST['username'];
+					if(!($stmt = $mysqli->prepare("SELECT user.id FROM user WHERE user.username = $currentUser"))){
+						echo "Prepare failed: " . $stmt->errno . " " . $stmt->error;
+					}
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($currentUserID)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!($stmt = $mysqli->prepare("SELECT user.fname, user.lname, user.id FROM user INNER JOIN friend f ON f.idfriend = user.id WHERE f.iduser = $currentUserID"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($friend_id, $f_name, $l_name)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $friend_id|$currentUserID . ' "> ' . $f_name . ' ' . $l_name . '</option>\n';
+					}
+					$stmt->close();
+					?>
+				</select>
+			<input type="submit" value="Email for Urgent Help" />
+		</fieldset>
+		<br>
+</form>
 
 </body>
 </html>
