@@ -42,12 +42,11 @@ if ($mysqli->connect_errno) {
         <td>Branch</td>
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT us.fname, us.lname, us.rank, us.branch FROM user us 
-INNER JOIN user_campaign uc ON us.id = uc.uid INNER JOIN campaign c ON uc.cid = c.id WHERE c.id = ?"))){
+if(!($stmt = $mysqli->prepare("SELECT user.fname, user.lname, user.rank, user.branch FROM user WHERE user.phone = ?"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
-if(!($stmt->bind_param("i",$_POST['campaign']))){
+if(!($stmt->bind_param("s",$_POST['phone']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 

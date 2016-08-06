@@ -12,7 +12,24 @@ if ($mysqli->connect_errno) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>	
 <body>
+	<header id="header">
+		<h1><a href="mainpage.php">Veteran Connection</a></h1>
+		<nav id="nav">
+			<ul>
+				<li><a href="mainpage.php">Home</a></li>
+				<li><a href="searchForMember.php">Search</a></li>
+				<li><a href="http://web.engr.oregonstate.edu/~merrittm/cs344/phpBB-3.1.9/phpBB3/">Forum</a></li>
+				<li><a href="mainpage.php">Sign In</a></li>
+			</ul>
+		</nav>
+	</header>
+	<br>	
 <div>
 	<table>
 		<tr>
