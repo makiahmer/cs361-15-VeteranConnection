@@ -44,9 +44,11 @@ $stmt->close();
 				<select name="connection">
 					<!-- Get list of connections from current user -->
 					<?php
-					$currentUser = $_POST['username'];
-					if(!($stmt = $mysqli->prepare("SELECT user.id FROM user WHERE user.username = $currentUser"))){
+					if(!($stmt = $mysqli->prepare("SELECT user.id FROM user WHERE user.username = ?"))){
 						echo "Prepare failed: " . $stmt->errno . " " . $stmt->error;
+					}
+					if(!($stmt->bind_param("ss",$_POST['username']))){
+						echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 					}
 					if(!$stmt->execute()){
 						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
